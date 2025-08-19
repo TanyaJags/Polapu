@@ -1,3 +1,4 @@
+using System.Net;
 using Core.API.DataAccess.SqlAccess;
 using Core.API.Model;
 
@@ -11,15 +12,28 @@ public class CandidateService : ICandidateService
         _repository = repository;
     }
     
-    public IEnumerable<Candidate> GetCandidates()
+    public IEnumerable<Candidate> GetCandidates(CandidateStatus? status)
     {
         var candidates = _repository.GetCandidates();
-        return candidates;
+        if (status == null)
+        {
+            return candidates;
+        }
+        else
+        {
+            return candidates.Where(c => c.Status != status.Value);
+        }
     }
 
     public Candidate? GetById(int id)
     {
         Candidate? candidate = _repository.GetById(id);
         return candidate;
+    }
+
+    public HttpStatusCode Create(Candidate candidate)
+    {
+        HttpStatusCode result = _repository.Create(candidate);
+        return result;
     }
 }

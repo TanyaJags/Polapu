@@ -1,12 +1,14 @@
+using System.Net;
 using Core.API.Model;
 
 namespace Core.API.DataAccess.SqlAccess;
 
 public class CandidateRepository : ICandidateRepository
 {
-    public IQueryable<Candidate> GetCandidates()
+    private IQueryable<Candidate> candidates;
+    public CandidateRepository()
     {
-        var candidates = new List<Candidate>
+        candidates = new List<Candidate>
         {
             new Candidate
             {
@@ -22,6 +24,9 @@ public class CandidateRepository : ICandidateRepository
                 Status = CandidateStatus.Applied
             }
         }.AsQueryable();
+    }
+    public IQueryable<Candidate> GetCandidates()
+    {
         return candidates;
     }
 
@@ -29,5 +34,13 @@ public class CandidateRepository : ICandidateRepository
     {
         Candidate? candidate = GetCandidates().FirstOrDefault(c => c.Id == id);
         return candidate;
+    }
+
+    public HttpStatusCode Create(Candidate candidate)
+    {
+        var list = candidates.ToList();
+        list.Add(candidate);
+        candidates = list.AsQueryable();
+        return HttpStatusCode.Created;
     }
 }

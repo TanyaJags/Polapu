@@ -31,3 +31,4 @@
 /Users/mac/Documents/CODE/C#/Polapu/Platform.Core/Core.API/obj/Debug/net8.0/Core.API.pdb
 /Users/mac/Documents/CODE/C#/Polapu/Platform.Core/Core.API/obj/Debug/net8.0/Core.API.genruntimeconfig.cache
 /Users/mac/Documents/CODE/C#/Polapu/Platform.Core/Core.API/obj/Debug/net8.0/ref/Core.API.dll
+/Users/mac/Documents/CODE/C#/Polapu/Platform.Core/Core.API/obj/Debug/net8.0/Core.API.sourcelink.json

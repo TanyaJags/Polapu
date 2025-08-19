@@ -13,9 +13,9 @@ public class CandidateController : Controller
         _candidateService = candidateService;
     }
     [HttpGet]
-    public ActionResult<IEnumerable<Candidate>> GetAll()
+    public ActionResult<IEnumerable<Candidate>> GetAll([FromQuery] CandidateStatus? status)
     {
-        var results = _candidateService.GetCandidates();        
+        var results = _candidateService.GetCandidates(status);        
         return Ok(results);
     }
 
@@ -24,5 +24,18 @@ public class CandidateController : Controller
     {
         var result = _candidateService.GetById(id);
         return Ok(result);
+    }
+
+    [HttpPost]
+    public ActionResult<Candidate> Create([FromBody] Candidate candidate)
+    {
+        var result = _candidateService.Create(candidate);
+        return Ok(result);
+    }
+
+    [HttpPut]
+    public ActionResult<Candidate> UpdateInfo([FromBody] Candidate candidate)
+    {
+            return Ok();
     }
 }
