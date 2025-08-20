@@ -43,4 +43,22 @@ public class CandidateRepository : ICandidateRepository
         candidates = list.AsQueryable();
         return HttpStatusCode.Created;
     }
+
+    public HttpStatusCode UpdateInfo(Candidate candidate)
+    {
+        //sql update here 
+        return HttpStatusCode.OK;
+    }
+
+    public HttpStatusCode UpdateStatus(int id, CandidateStatus status)
+    {
+        //chang this logic
+        //var candidate = GetById(id);
+        //if (candidate != null)
+        //{
+        //    candidate.Status = status; // Update the status
+        //    return HttpStatusCode.OK;
+        //}
+        return HttpStatusCode.NotFound;
+    }
 }

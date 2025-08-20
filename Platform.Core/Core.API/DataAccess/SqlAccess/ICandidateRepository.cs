@@ -8,4 +8,7 @@ public interface ICandidateRepository
     public IQueryable<Candidate> GetCandidates();
     public Candidate? GetById(int id);
     public HttpStatusCode Create(Candidate candidate);
+    public HttpStatusCode UpdateInfo(Candidate candidate);
+    public HttpStatusCode UpdateStatus(int id, CandidateStatus status);
+
 }

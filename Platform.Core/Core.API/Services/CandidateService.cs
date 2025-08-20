@@ -36,4 +36,26 @@ public class CandidateService : ICandidateService
         HttpStatusCode result = _repository.Create(candidate);
         return result;
     }
+
+    public HttpStatusCode UpdateInfo(Candidate candidate)
+    {
+        var candidates = _repository.GetCandidates().Where(c => c.Id == candidate.Id);
+        if (candidates.Any()) {
+            var result = _repository.UpdateInfo(candidate);
+            return HttpStatusCode.OK;
+        }
+        return HttpStatusCode.NotFound;
+    }
+
+    public HttpStatusCode UpdateStatus(int  id, CandidateStatus status)
+    {
+        var candidate = _repository.GetCandidates().Where(c => c.Id == id).FirstOrDefault();
+        if (candidate != null) {
+            //change thi sstatus logic
+            candidate.Status = CandidateStatus.InterviewScheduled; // Example status update
+            var result = _repository.UpdateInfo(candidate);
+            return HttpStatusCode.OK;
+        }
+        return HttpStatusCode.NotFound;
+    }
 }

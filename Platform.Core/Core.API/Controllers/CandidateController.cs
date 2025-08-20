@@ -1,5 +1,6 @@
 using Core.API.Model;
 using Core.API.Services;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Core.API.Controllers;
@@ -36,6 +37,14 @@ public class CandidateController : Controller
     [HttpPut]
     public ActionResult<Candidate> UpdateInfo([FromBody] Candidate candidate)
     {
-            return Ok();
+        var result = _candidateService.UpdateInfo(candidate);
+        return Ok();
+    }
+
+    [HttpPatch]
+    public ActionResult<Candidate> UpdateStatus([FromBody] int id, CandidateStatus status)
+    {
+        var result = _candidateService.UpdateStatus(id,status );
+        return NotFound();
     }
 }
