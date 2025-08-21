@@ -1,5 +1,6 @@
 using Core.API.DataAccess.SqlAccess;
 using Core.API.Services;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +13,9 @@ builder.Services.AddControllers()
     {
         options.JsonSerializerOptions.Converters.Add(new System.Text.Json.Serialization.JsonStringEnumConverter());
     });
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 
 builder.Services.AddScoped<ICandidateService, CandidateService>();
 builder.Services.AddScoped<ICandidateRepository,CandidateRepository>();

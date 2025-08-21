@@ -6,47 +6,33 @@ namespace Core.API.DataAccess.SqlAccess;
 public class CandidateRepository : ICandidateRepository
 {
     private IQueryable<Candidate> candidates;
-    public CandidateRepository()
+    private readonly AppDbContext _db;
+    public CandidateRepository(AppDbContext context)
     {
-        candidates = new List<Candidate>
-        {
-            new Candidate
-            {
-                Email = "tanya.sharma@hotmail.com",
-                Id = 1,
-                Name = new Name
-                {
-                    FirstName = "Tanya",
-                    LastName = "Sharma"
-                },
-                Phone = "7550211805",
-                ResumeUrl = "xyz.url.com",
-                Status = CandidateStatus.Applied
-            }
-        }.AsQueryable();
+        _db = context;
     }
     public IQueryable<Candidate> GetCandidates()
     {
-        return candidates;
+        return _db.Candidates;
     }
 
     public Candidate? GetById(int id)
     {
-        Candidate? candidate = GetCandidates().FirstOrDefault(c => c.Id == id);
+        Candidate? candidate = _db.Candidates.Find(id);
         return candidate;
     }
 
     public HttpStatusCode Create(Candidate candidate)
     {
-        var list = candidates.ToList();
-        list.Add(candidate);
-        candidates = list.AsQueryable();
+        _db.Candidates.Add(candidate);
+        _db.SaveChanges();
         return HttpStatusCode.Created;
     }
 
     public HttpStatusCode UpdateInfo(Candidate candidate)
     {
-        //sql update here 
+        _db.Candidates.Update(candidate);
+        _db.SaveChanges();
         return HttpStatusCode.OK;
     }
 
