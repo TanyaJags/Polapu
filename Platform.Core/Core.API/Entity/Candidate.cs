@@ -1,4 +1,6 @@
-namespace Core.API.Model;
+using Core.API.Model;
+
+namespace Core.API.Entity;
 
 public class Candidate
 {

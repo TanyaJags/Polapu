@@ -14,37 +14,37 @@ public class CandidateController : Controller
         _candidateService = candidateService;
     }
     [HttpGet]
-    public ActionResult<IEnumerable<Candidate>> GetAll([FromQuery] CandidateStatus? status)
+    public ActionResult<IEnumerable<CandidateDto>> GetAll([FromQuery] CandidateStatus? status)
     {
         var results = _candidateService.GetCandidates(status);        
         return Ok(results);
     }
 
-    [HttpGet("{id}")]
-    public ActionResult<Candidate> GetById(int id)
-    {
-        var result = _candidateService.GetById(id);
-        return Ok(result);
-    }
-
-    [HttpPost]
-    public ActionResult<Candidate> Create([FromBody] Candidate candidate)
-    {
-        var result = _candidateService.Create(candidate);
-        return Ok(result);
-    }
-
-    [HttpPut]
-    public ActionResult<Candidate> UpdateInfo([FromBody] Candidate candidate)
-    {
-        var result = _candidateService.UpdateInfo(candidate);
-        return Ok();
-    }
-
-    [HttpPatch]
-    public ActionResult<Candidate> UpdateStatus([FromBody] int id, CandidateStatus status)
-    {
-        var result = _candidateService.UpdateStatus(id,status );
-        return NotFound();
-    }
+    // [HttpGet("{id}")]
+    // public ActionResult<CandidateDto> GetById(int id)
+    // {
+    //     var result = _candidateService.GetById(id);
+    //     return Ok(result);
+    // }
+    //
+    // [HttpPost]
+    // public ActionResult<CandidateDto> Create([FromBody] CandidateDto candidateDto)
+    // {
+    //     var result = _candidateService.Create(candidateDto);
+    //     return Ok(result);
+    // }
+    //
+    // [HttpPut]
+    // public ActionResult<CandidateDto> UpdateInfo([FromBody] CandidateDto candidateDto)
+    // {
+    //     var result = _candidateService.UpdateInfo(candidateDto);
+    //     return Ok();
+    // }
+    //
+    // [HttpPatch]
+    // public ActionResult<CandidateDto> UpdateStatus([FromBody] int id, CandidateStatus status)
+    // {
+    //     var result = _candidateService.UpdateStatus(id,status );
+    //     return NotFound();
+    // }
 }

@@ -1,61 +1,64 @@
 using System.Net;
 using Core.API.DataAccess.SqlAccess;
 using Core.API.Model;
+using Mapster;
+using MapsterMapper;
 
 namespace Core.API.Services;
 
 public class CandidateService : ICandidateService
 {
     private readonly ICandidateRepository _repository;
-    public CandidateService(ICandidateRepository repository)
+    private readonly IMapper _mapper;
+    public CandidateService(ICandidateRepository repository, IMapper mapper)
     {
         _repository = repository;
+        _mapper = mapper;
     }
     
-    public IEnumerable<Candidate> GetCandidates(CandidateStatus? status)
+    public IEnumerable<CandidateDto> GetCandidates(CandidateStatus? status)
     {
         var candidates = _repository.GetCandidates();
-        if (status == null)
+
+        if (status.HasValue)
         {
-            return candidates;
+            candidates = candidates.Where(c => c.Status == status.Value);
         }
-        else
-        {
-            return candidates.Where(c => c.Status != status.Value);
-        }
+        return candidates.ProjectToType<CandidateDto>().ToList();
     }
 
-    public Candidate? GetById(int id)
-    {
-        Candidate? candidate = _repository.GetById(id);
-        return candidate;
-    }
 
-    public HttpStatusCode Create(Candidate candidate)
-    {
-        HttpStatusCode result = _repository.Create(candidate);
-        return result;
-    }
-
-    public HttpStatusCode UpdateInfo(Candidate candidate)
-    {
-        var candidates = _repository.GetCandidates().Where(c => c.Id == candidate.Id);
-        if (candidates.Any()) {
-            var result = _repository.UpdateInfo(candidate);
-            return HttpStatusCode.OK;
-        }
-        return HttpStatusCode.NotFound;
-    }
-
-    public HttpStatusCode UpdateStatus(int  id, CandidateStatus status)
-    {
-        var candidate = _repository.GetCandidates().Where(c => c.Id == id).FirstOrDefault();
-        if (candidate != null) {
-            //change thi sstatus logic
-            candidate.Status = CandidateStatus.InterviewScheduled; // Example status update
-            var result = _repository.UpdateInfo(candidate);
-            return HttpStatusCode.OK;
-        }
-        return HttpStatusCode.NotFound;
-    }
+    // public CandidateDto? GetById(int id)
+    // {
+    //     CandidateDto? candidate = _repository.GetById(id);
+    //     return candidate;
+    // }
+    //
+    // public HttpStatusCode Create(CandidateDto candidateDto)
+    // {
+    //     HttpStatusCode result = _repository.Create(candidateDto);
+    //     return result;
+    // }
+    //
+    // public HttpStatusCode UpdateInfo(CandidateDto candidateDto)
+    // {
+    //     // var candidates = _repository.GetCandidates().Where(c => c.Id == candidateDto.Id);
+    //     // if (candidates.Any()) {
+    //     //     var result = _repository.UpdateInfo(candidateDto);
+    //     //     return HttpStatusCode.OK;
+    //     // }
+    //     return HttpStatusCode.NotFound;
+    // }
+    //
+    // public HttpStatusCode UpdateStatus(int  id, CandidateStatus status)
+    // {
+    //     // var candidate = _repository.GetCandidates().Where(c => c.Id == id).FirstOrDefault();
+    //     // if (candidate != null) {
+    //     //     //change thi sstatus logic
+    //     //     candidate.Status = CandidateStatus.InterviewScheduled; // Example status update
+    //     //     var result = _repository.UpdateInfo(candidate);
+    //     //     return HttpStatusCode.OK;
+    //     // }
+    //     return HttpStatusCode.NotFound;
+    // }
 }
