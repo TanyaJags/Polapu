@@ -24,16 +24,17 @@ public class CandidateController : Controller
     public ActionResult<CandidateDto> GetById(int id)
     {
         var result = _candidateService.GetById(id);
+        if (result == null) return NotFound();
         return Ok(result);
     }
     
-    // [HttpPost]
-    // public ActionResult<CandidateDto> Create([FromBody] CandidateDto candidateDto)
-    // {
-    //     var result = _candidateService.Create(candidateDto);
-    //     return Ok(result);
-    // }
-    //
+    [HttpPost]
+    public ActionResult<CandidateDto> Create([FromBody] CandidateInfoDto candidateDto)
+    {
+        var result = _candidateService.Create(candidateDto);
+        return Ok(result);
+    }
+    
     // [HttpPut]
     // public ActionResult<CandidateDto> UpdateInfo([FromBody] CandidateDto candidateDto)
     // {

@@ -23,13 +23,13 @@ public class CandidateRepository : ICandidateRepository
         return candidate;
     }
     
-    // public HttpStatusCode Create(CandidateDto candidateDto)
-    // {
-    //     _db.Candidate.Add(candidateDto);
-    //     _db.SaveChanges();
-    //     return HttpStatusCode.Created;
-    // }
-    //
+    public HttpStatusCode Create(Candidate candidateDto)
+    {
+        _db.Candidates.Add(candidateDto);
+        _db.SaveChanges();
+        return HttpStatusCode.Created;
+    }
+    
     // public HttpStatusCode UpdateInfo(CandidateDto candidateDto)
     // {
     //     _db.Candidate.Update(candidateDto);

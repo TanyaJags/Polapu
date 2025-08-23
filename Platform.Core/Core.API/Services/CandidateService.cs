@@ -1,5 +1,6 @@
 using System.Net;
 using Core.API.DataAccess.SqlAccess;
+using Core.API.Entity;
 using Core.API.Model;
 using Mapster;
 using MapsterMapper;
@@ -38,12 +39,13 @@ public class CandidateService : ICandidateService
         return _mapper.Map<CandidateDto>(candidate);
     }
     
-    // public HttpStatusCode Create(CandidateDto candidateDto)
-    // {
-    //     HttpStatusCode result = _repository.Create(candidateDto);
-    //     return result;
-    // }
-    //
+    public HttpStatusCode Create(CandidateInfoDto candidateDto)
+    {
+        var candidate = _mapper.Map<Candidate>(candidateDto);
+        HttpStatusCode result = _repository.Create(candidate);
+        return result;
+    }
+    
     // public HttpStatusCode UpdateInfo(CandidateDto candidateDto)
     // {
     //     // var candidates = _repository.GetCandidates().Where(c => c.Id == candidateDto.Id);
