@@ -28,12 +28,16 @@ public class CandidateService : ICandidateService
     }
 
 
-    // public CandidateDto? GetById(int id)
-    // {
-    //     CandidateDto? candidate = _repository.GetById(id);
-    //     return candidate;
-    // }
-    //
+    public CandidateDto? GetById(int id)
+    {
+        var candidate = _repository.GetById(id);
+        if (candidate == null)
+        {
+            return null;
+        }
+        return _mapper.Map<CandidateDto>(candidate);
+    }
+    
     // public HttpStatusCode Create(CandidateDto candidateDto)
     // {
     //     HttpStatusCode result = _repository.Create(candidateDto);

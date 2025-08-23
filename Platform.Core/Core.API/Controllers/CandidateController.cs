@@ -20,13 +20,13 @@ public class CandidateController : Controller
         return Ok(results);
     }
 
-    // [HttpGet("{id}")]
-    // public ActionResult<CandidateDto> GetById(int id)
-    // {
-    //     var result = _candidateService.GetById(id);
-    //     return Ok(result);
-    // }
-    //
+    [HttpGet("{id}")]
+    public ActionResult<CandidateDto> GetById(int id)
+    {
+        var result = _candidateService.GetById(id);
+        return Ok(result);
+    }
+    
     // [HttpPost]
     // public ActionResult<CandidateDto> Create([FromBody] CandidateDto candidateDto)
     // {

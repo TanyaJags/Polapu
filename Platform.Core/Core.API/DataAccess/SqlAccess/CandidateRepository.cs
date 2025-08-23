@@ -17,12 +17,12 @@ public class CandidateRepository : ICandidateRepository
         return _db.Candidates;
     }
 
-    // public CandidateDto? GetById(int id)
-    // {
-    //     CandidateDto? candidate = _db.Candidate.Find(id);
-    //     return candidate;
-    // }
-    //
+    public Candidate? GetById(int id)
+    {
+        Candidate? candidate = _db.Candidates.Find(id);
+        return candidate;
+    }
+    
     // public HttpStatusCode Create(CandidateDto candidateDto)
     // {
     //     _db.Candidate.Add(candidateDto);
