@@ -39,11 +39,16 @@ public class CandidateService : ICandidateService
         return _mapper.Map<CandidateDto>(candidate);
     }
     
-    public HttpStatusCode Create(CandidateInfoDto candidateDto)
+    public Candidate? Create(CandidateInfoDto candidateDto)
     {
         var candidate = _mapper.Map<Candidate>(candidateDto);
+        candidate.Status = CandidateStatus.Applied;
         HttpStatusCode result = _repository.Create(candidate);
-        return result;
+        if (result != HttpStatusCode.Created)
+        {
+            return null;
+        }
+        return candidate;
     }
     
     // public HttpStatusCode UpdateInfo(CandidateDto candidateDto)

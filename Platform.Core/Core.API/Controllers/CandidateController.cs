@@ -29,11 +29,25 @@ public class CandidateController : Controller
     }
     
     [HttpPost]
-    public ActionResult<CandidateDto> Create([FromBody] CandidateInfoDto candidateDto)
+    public ActionResult<CandidateDto> Create([FromForm] CandidateInfoDto request)
     {
-        var result = _candidateService.Create(candidateDto);
-        return Ok(result);
+        var result = _candidateService.Create(new CandidateInfoDto
+        {
+            Name = request.Name,
+            Email = request.Email,
+            Phone = request.Phone,
+            ResumeUrl = request.ResumeUrl
+        });
+
+        if (result == null)
+            return BadRequest();
+
+        // Here you can process request.File as needed
+
+        return CreatedAtAction(nameof(GetById), new { id = result.Id }, result);
     }
+
+
     
     // [HttpPut]
     // public ActionResult<CandidateDto> UpdateInfo([FromBody] CandidateDto candidateDto)
