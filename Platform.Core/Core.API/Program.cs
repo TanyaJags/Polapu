@@ -1,3 +1,4 @@
+using Core.API.DataAccess.BlobAccess;
 using Core.API.DataAccess.SqlAccess;
 using Core.API.Services;
 using Microsoft.EntityFrameworkCore;
@@ -19,12 +20,10 @@ builder.Services.AddControllers()
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-
-
 builder.Services.AddMapster();
 builder.Services.AddSingleton(TypeAdapterConfig.GlobalSettings);
 builder.Services.AddScoped<IMapper, ServiceMapper>();
-
+builder.Services.AddSingleton<BlobService>();
 builder.Services.AddScoped<ICandidateService, CandidateService>();
 builder.Services.AddScoped<ICandidateRepository,CandidateRepository>();
 

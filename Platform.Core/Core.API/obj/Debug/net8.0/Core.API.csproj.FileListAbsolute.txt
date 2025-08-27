@@ -140,3 +140,8 @@
 /Users/mac/Documents/CODE/C#/Polapu/Platform.Core/Core.API/bin/Debug/net8.0/Mapster.Core.dll
 /Users/mac/Documents/CODE/C#/Polapu/Platform.Core/Core.API/bin/Debug/net8.0/Mapster.DependencyInjection.dll
 /Users/mac/Documents/CODE/C#/Polapu/Platform.Core/Core.API/bin/Debug/net8.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll
+/Users/mac/Documents/CODE/C#/Polapu/Platform.Core/Core.API/bin/Debug/net8.0/Azure.Storage.Blobs.dll
+/Users/mac/Documents/CODE/C#/Polapu/Platform.Core/Core.API/bin/Debug/net8.0/Azure.Storage.Common.dll
+/Users/mac/Documents/CODE/C#/Polapu/Platform.Core/Core.API/bin/Debug/net8.0/Microsoft.Extensions.Logging.Abstractions.dll
+/Users/mac/Documents/CODE/C#/Polapu/Platform.Core/Core.API/bin/Debug/net8.0/System.ClientModel.dll
+/Users/mac/Documents/CODE/C#/Polapu/Platform.Core/Core.API/bin/Debug/net8.0/System.IO.Hashing.dll

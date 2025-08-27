@@ -1,4 +1,6 @@
 using System.Net;
+using Azure.Storage.Blobs;
+using Core.API.DataAccess.BlobAccess;
 using Core.API.DataAccess.SqlAccess;
 using Core.API.Entity;
 using Core.API.Model;
@@ -11,10 +13,12 @@ public class CandidateService : ICandidateService
 {
     private readonly ICandidateRepository _repository;
     private readonly IMapper _mapper;
-    public CandidateService(ICandidateRepository repository, IMapper mapper)
+    private readonly BlobService _blobServiceClient;
+    public CandidateService(ICandidateRepository repository, IMapper mapper, BlobService blobService)
     {
         _repository = repository;
         _mapper = mapper;
+        _blobServiceClient = blobService;
     }
     
     public IEnumerable<CandidateDto> GetCandidates(CandidateStatus? status)
@@ -41,8 +45,14 @@ public class CandidateService : ICandidateService
     
     public Candidate? Create(CandidateInfoDto candidateDto)
     {
+        var doesExists = _repository.GetCandidates()
+            .Any(c => c.Name == candidateDto.Name && c.Email == candidateDto.Email);
+        if (!doesExists)
+            return null;
+        string resumeUrl = _blobServiceClient.UploadFile(candidateDto.Resume);
         var candidate = _mapper.Map<Candidate>(candidateDto);
         candidate.Status = CandidateStatus.Applied;
+        candidate.ResumeUrl = resumeUrl;
         HttpStatusCode result = _repository.Create(candidate);
         if (result != HttpStatusCode.Created)
         {

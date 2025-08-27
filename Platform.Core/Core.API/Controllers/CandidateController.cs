@@ -36,14 +36,12 @@ public class CandidateController : Controller
             Name = request.Name,
             Email = request.Email,
             Phone = request.Phone,
-            ResumeUrl = request.ResumeUrl
+            Resume = request.Resume
         });
 
         if (result == null)
             return BadRequest();
-
-        // Here you can process request.File as needed
-
+        
         return CreatedAtAction(nameof(GetById), new { id = result.Id }, result);
     }
 
