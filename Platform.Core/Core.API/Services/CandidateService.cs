@@ -14,13 +14,14 @@ public class CandidateService : ICandidateService
     private readonly ICandidateRepository _repository;
     private readonly IMapper _mapper;
     private readonly BlobService _blobServiceClient;
+
     public CandidateService(ICandidateRepository repository, IMapper mapper, BlobService blobService)
     {
         _repository = repository;
         _mapper = mapper;
         _blobServiceClient = blobService;
     }
-    
+
     public IEnumerable<CandidateDto> GetCandidates(CandidateStatus? status)
     {
         var candidates = _repository.GetCandidates();
