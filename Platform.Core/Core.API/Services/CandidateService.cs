@@ -48,7 +48,7 @@ public class CandidateService : ICandidateService
     {
         var doesExists = _repository.GetCandidates()
             .Any(c => c.Name == candidateDto.Name && c.Email == candidateDto.Email);
-        if (!doesExists)
+        if (doesExists)
             return null;
         string resumeUrl = _blobServiceClient.UploadFile(candidateDto.Resume);
         var candidate = _mapper.Map<Candidate>(candidateDto);
@@ -62,25 +62,25 @@ public class CandidateService : ICandidateService
         return candidate;
     }
     
-    // public HttpStatusCode UpdateInfo(CandidateDto candidateDto)
-    // {
-    //     // var candidates = _repository.GetCandidates().Where(c => c.Id == candidateDto.Id);
-    //     // if (candidates.Any()) {
-    //     //     var result = _repository.UpdateInfo(candidateDto);
-    //     //     return HttpStatusCode.OK;
-    //     // }
-    //     return HttpStatusCode.NotFound;
-    // }
-    //
-    // public HttpStatusCode UpdateStatus(int  id, CandidateStatus status)
-    // {
-    //     // var candidate = _repository.GetCandidates().Where(c => c.Id == id).FirstOrDefault();
-    //     // if (candidate != null) {
-    //     //     //change thi sstatus logic
-    //     //     candidate.Status = CandidateStatus.InterviewScheduled; // Example status update
-    //     //     var result = _repository.UpdateInfo(candidate);
-    //     //     return HttpStatusCode.OK;
-    //     // }
-    //     return HttpStatusCode.NotFound;
-    // }
+    public HttpStatusCode UpdateInfo(CandidateDto candidateDto)
+    {
+        var candidates = _repository.GetCandidates().Any(c => c.Id == candidateDto.Id);
+        if (candidates) {
+            var candidate = _mapper.Map<Candidate>(candidateDto);
+            var result = _repository.UpdateInfo(candidate);
+            return HttpStatusCode.OK;
+        }
+        return HttpStatusCode.NotFound;
+    }
+    
+    public HttpStatusCode UpdateStatus(int  id, CandidateStatus status)
+    {
+        var candidate = _repository.GetCandidates().Where(c => c.Id == id).FirstOrDefault();
+        if (candidate != null) {
+            candidate.Status = status;
+            var result = _repository.UpdateInfo(candidate);
+            return HttpStatusCode.OK;
+        }
+        return HttpStatusCode.NotFound;
+    }
 }

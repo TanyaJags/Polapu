@@ -6,7 +6,7 @@ public class CandidateDto
 {
     public CandidateDto() { }  
 
-    public string Id { get; set; }
+    public int Id { get; set; }
     public string Name { get; set; }
     [EmailAddress]
     public String Email { get; set; }

@@ -30,22 +30,11 @@ public class CandidateRepository : ICandidateRepository
         return HttpStatusCode.Created;
     }
     
-    // public HttpStatusCode UpdateInfo(CandidateDto candidateDto)
-    // {
-    //     _db.Candidate.Update(candidateDto);
-    //     _db.SaveChanges();
-    //     return HttpStatusCode.OK;
-    // }
-    //
-    // public HttpStatusCode UpdateStatus(int id, CandidateStatus status)
-    // {
-    //     //chang this logic
-    //     //var candidate = GetById(id);
-    //     //if (candidate != null)
-    //     //{
-    //     //    candidate.Status = status; // Update the status
-    //     //    return HttpStatusCode.OK;
-    //     //}
-    //     return HttpStatusCode.NotFound;
-    // }
+    public HttpStatusCode UpdateInfo(Candidate candidate)
+    {
+        _db.Candidates.Update(candidate);
+        _db.SaveChanges();
+        return HttpStatusCode.OK;
+    }
+    
 }

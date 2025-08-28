@@ -1,3 +1,4 @@
+using System.Net;
 using Core.API.Model;
 using Core.API.Services;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -44,20 +45,18 @@ public class CandidateController : Controller
         
         return CreatedAtAction(nameof(GetById), new { id = result.Id }, result);
     }
-
-
     
-    // [HttpPut]
-    // public ActionResult<CandidateDto> UpdateInfo([FromBody] CandidateDto candidateDto)
-    // {
-    //     var result = _candidateService.UpdateInfo(candidateDto);
-    //     return Ok();
-    // }
-    //
-    // [HttpPatch]
-    // public ActionResult<CandidateDto> UpdateStatus([FromBody] int id, CandidateStatus status)
-    // {
-    //     var result = _candidateService.UpdateStatus(id,status );
-    //     return NotFound();
-    // }
+    [HttpPut]
+    public ActionResult<CandidateDto> UpdateInfo([FromBody] CandidateDto candidateDto)
+    {
+        var result = _candidateService.UpdateInfo(candidateDto);
+        return Ok();
+    }
+    
+    [HttpPatch]
+    public ActionResult<HttpStatusCode> UpdateStatus(int id, CandidateStatus status)
+    {
+        var result = _candidateService.UpdateStatus(id,status);
+        return result;
+    }
 }
