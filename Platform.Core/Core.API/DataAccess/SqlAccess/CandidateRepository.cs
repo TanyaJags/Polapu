@@ -6,7 +6,6 @@ namespace Core.API.DataAccess.SqlAccess;
 
 public class CandidateRepository : ICandidateRepository
 {
-    private IQueryable<CandidateDto> candidates;
     private readonly AppDbContext _db;
     public CandidateRepository(AppDbContext context)
     {

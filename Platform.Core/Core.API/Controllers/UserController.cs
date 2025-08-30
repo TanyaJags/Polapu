@@ -1,3 +1,4 @@
+using Core.API.Model;
 using Core.API.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,16 +7,24 @@ namespace Core.API.Controllers;
 [Route("[controller]")]
 public class UserController : Controller
 {
-    private readonly IRecruiterService _recruiterService;
+    private readonly IUserService _userService;
 
-    public UserController(IRecruiterService recruiterService)
+    public UserController(IUserService userService)
     {
-        _recruiterService = recruiterService;
+        _userService =  userService;
     }
     // GET
-    [HttpGet]
-    public ActionResult GetRecruiters()
+    [HttpPost]
+    public ActionResult<User> Create(UserDto userDto)
     {
-        return Ok();
+        var result = _userService.Create(userDto);
+        return StatusCode(StatusCodes.Status201Created, result);    
+    }
+
+    [HttpGet]
+    public ActionResult<User> GetById(int id)
+    {
+        var result = _userService.GetById(id);
+        return Ok(result);
     }
 }

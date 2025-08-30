@@ -20,12 +20,21 @@ builder.Services.AddControllers()
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+//Configuring Mapster
 builder.Services.AddMapster();
 builder.Services.AddSingleton(TypeAdapterConfig.GlobalSettings);
 builder.Services.AddScoped<IMapper, ServiceMapper>();
+
+//Configuring Blob Service
 builder.Services.AddSingleton<BlobService>();
+
+//Registering local Dependencies
 builder.Services.AddScoped<ICandidateService, CandidateService>();
 builder.Services.AddScoped<ICandidateRepository,CandidateRepository>();
+builder.Services.AddScoped<IRecruiterService,RecruiterService>();
+builder.Services.AddScoped<IUserService,UserService>();
+builder.Services.AddScoped<IUserRepository,UserRepository>();
+builder.Services.AddScoped<IRecruiterRepository,RecruiterRepository>();
 
 var app = builder.Build();
 

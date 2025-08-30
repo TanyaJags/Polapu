@@ -15,11 +15,26 @@ public class RecruiterController : Controller
     {
         _recruiterService = recruiterService;
     }
-
+    
     [HttpPost]
-    public IActionResult CreateRecruiter(CandidateInfoDto candidateDto)
+    public ActionResult CreateRecruiter(RecuiterDto recuiterDto)
     {
-        return Ok();
+        var recruiter = _recruiterService.Create(recuiterDto);
+        if (recruiter == null)
+            return BadRequest();
+        
+        return CreatedAtAction(nameof(GetById), new { id = recruiter.Id }, recruiter);    
+    }
+    
+    [HttpGet("{id}")]
+
+    public ActionResult<Recruiter> GetById(int id)
+    {
+        var recruiter = _recruiterService.GetById(id);
+        if (recruiter == null)
+            return NotFound();
+        return Ok(recruiter);
+        
     }
 }
    
