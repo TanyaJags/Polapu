@@ -14,12 +14,14 @@ public class CandidateService : ICandidateService
     private readonly ICandidateRepository _repository;
     private readonly IMapper _mapper;
     private readonly BlobService _blobServiceClient;
+    private readonly IUserService _userService;
 
-    public CandidateService(ICandidateRepository repository, IMapper mapper, BlobService blobService)
+    public CandidateService(ICandidateRepository repository, IMapper mapper, BlobService blobService,  IUserService userService)
     {
         _repository = repository;
         _mapper = mapper;
         _blobServiceClient = blobService;
+        _userService = userService;
     }
 
     public IEnumerable<CandidateDto> GetCandidates(CandidateStatus? status)
@@ -58,6 +60,17 @@ public class CandidateService : ICandidateService
         if (result != HttpStatusCode.Created)
         {
             return null;
+        }
+        else
+        {
+            var user = new UserDto
+            {
+                Email = candidateDto.Email,
+                Name = candidateDto.Name,
+                role = UserProfile.Candidate,
+                password = ""
+            };
+            var userresult = _userService.Create(user);
         }
         return candidate;
     }
