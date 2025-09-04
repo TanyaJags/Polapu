@@ -1,11 +1,13 @@
 using System.Net;
 using Core.API.Model;
 using Core.API.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Core.API.Controllers;
 [ApiController]
+[Authorize(Roles = "Recruiter")]
 [Route("[controller]")]
 public class CandidateController : Controller
 {
@@ -28,7 +30,6 @@ public class CandidateController : Controller
         if (result == null) return NotFound();
         return Ok(result);
     }
-    
     [HttpPost]
     public ActionResult<CandidateDto> Create([FromForm] CandidateInfoDto request)
     {

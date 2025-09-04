@@ -15,6 +15,11 @@ public class UserRepository : IUserRepository
         return _db.Users.Find(id);
     }
 
+    public User GetByEmail(string email)
+    {
+        return _db.Users.FirstOrDefault(u => u.Email == email);
+    }
+
     public User Create(User user)
     {
          _db.Users.Add(user);

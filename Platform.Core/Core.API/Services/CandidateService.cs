@@ -6,6 +6,7 @@ using Core.API.Entity;
 using Core.API.Model;
 using Mapster;
 using MapsterMapper;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Core.API.Services;
 
@@ -34,8 +35,7 @@ public class CandidateService : ICandidateService
         }
         return candidates.ProjectToType<CandidateDto>().ToList();
     }
-
-
+    
     public CandidateDto? GetById(int id)
     {
         var candidate = _repository.GetById(id);
@@ -45,7 +45,6 @@ public class CandidateService : ICandidateService
         }
         return _mapper.Map<CandidateDto>(candidate);
     }
-    
     public Candidate? Create(CandidateInfoDto candidateDto)
     {
         var doesExists = _repository.GetCandidates()
@@ -68,7 +67,7 @@ public class CandidateService : ICandidateService
                 Email = candidateDto.Email,
                 Name = candidateDto.Name,
                 role = UserProfile.Candidate,
-                password = ""
+                password = "" //User should be able to set it up later
             };
             var userresult = _userService.Create(user);
         }
