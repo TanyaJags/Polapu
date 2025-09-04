@@ -10,6 +10,7 @@
         <PackageReference Include="Azure.Storage.Blobs" Version="12.26.0-beta.1" />
         <PackageReference Include="Mapster" Version="7.4.2-pre02" />
         <PackageReference Include="Mapster.DependencyInjection" Version="1.0.3-pre02" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.20" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.19"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.8" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.8" />

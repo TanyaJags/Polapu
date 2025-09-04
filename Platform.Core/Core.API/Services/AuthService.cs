@@ -8,7 +8,6 @@ public class AuthService : IAuthService
 {
     private readonly IUserRepository _userRepository;
 
-    public AuthService(IUserRepository userRepository)
     {
         _userRepository = userRepository;
     }
@@ -23,6 +22,4 @@ public class AuthService : IAuthService
 
     public string GenerateToken(User user)
     {
-        throw new NotImplementedException();
-    }
 }
