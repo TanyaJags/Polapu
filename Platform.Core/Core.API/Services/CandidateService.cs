@@ -66,7 +66,7 @@ public class CandidateService : ICandidateService
             {
                 Email = candidateDto.Email,
                 Name = candidateDto.Name,
-                role = UserProfile.Candidate,
+                Role = UserProfile.Candidate,
                 password = "" //User should be able to set it up later
             };
             var userresult = _userService.Create(user);

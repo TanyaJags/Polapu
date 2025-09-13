@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Core.API.Controllers;
 [ApiController]
-[Authorize]
+[Authorize(Roles = "Recruiter")]
 [Route("[controller]")]
 public class CandidateController : Controller
 {

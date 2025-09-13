@@ -62,6 +62,36 @@ builder.Services.AddSwaggerGen(c =>
         }
     });
 });
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Polapu API", Version = "v1" });
+
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        Scheme = "Bearer",
+        BearerFormat = "JWT",
+        In = ParameterLocation.Header,
+        Description = "Paste your JWT token here with 'Bearer ' prefix."
+    });
+
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            new string[] {}
+        }
+    });
+});
+
 // {
 //     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Polapu API", Version = "v1" });
 //
@@ -112,7 +142,6 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 
 
 var app = builder.Build();
-
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -120,11 +149,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "Polapu API v1");
-
-        // Small JS hack to auto-store login response
-        c.InjectJavascript("/scratches/scratch.js");
     });
+
 }
+
 app.UseAuthentication(); // 👈 enable JWT middleware
 app.UseAuthorization();
 app.UseHttpsRedirection();

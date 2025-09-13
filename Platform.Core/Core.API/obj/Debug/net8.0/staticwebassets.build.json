@@ -1,11 +1,19 @@
 {
   "Version": 1,
-  "Hash": "YZUTweQ6CyU2OX4jn45K4buVrQcAIMfqQ1z1VAWdTAc=",
+  "Hash": "VLG80vX6HZzR8girqo62WzQSl8EG2r6VaNiEDudKoS0=",
   "Source": "Core.API",
   "BasePath": "_content/Core.API",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "Core.API/wwwroot",
+      "Source": "Core.API",
+      "ContentRoot": "/Users/mac/Documents/CODE/C#/Polapu/Platform.Core/Core.API/wwwroot/",
+      "BasePath": "_content/Core.API",
+      "Pattern": "**"
+    }
+  ],
   "Assets": []
 }

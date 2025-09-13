@@ -20,7 +20,7 @@ public class RecruiterService : IRecruiterService
     public Recruiter? Create(RecuiterDto recruiterDto)
     {
         var user = _mapper.Map<UserDto>(recruiterDto);
-        user.role = UserProfile.Recruiter;
+        user.Role = UserProfile.Recruiter;
         var userresult = _userService.Create(user);
         if (userresult != null)
         {
